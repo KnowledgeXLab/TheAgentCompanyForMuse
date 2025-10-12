@@ -66,6 +66,21 @@ curl -fsSL -o setup.bat https://github.com/TheAgentCompany/the-agent-company-bac
 After a few minutes, you should have all services running, including GitLab, Plane, ownCloud, RocketChat,
 all with pre-baked data. Please check out the [SERVER SETUP DOC](./docs/SETUP.md) for more details and troubleshooting guide, especially if you are using Mac or Windows.
 
+
+<details>
+  <summary>Tips if launch process stalls</summary>
+
+When launching The Agent Company, it will attempt to access data from GitHub. This is used to satisfied potential Plane license requirement. If the launch process stalls, please ensure that your Docker environment has access to the following GitHub address.
+
+```
+curl -H 'Cache-Control: no-cache, no-store' -s -o ./docker-compose.yaml https://raw.githubusercontent.com/TheAgentCompany/plane/refs/heads/stable/deploy/selfhost/docker-compose.yml
+curl -H 'Cache-Control: no-cache, no-store' -s -o ./plane.env https://raw.githubusercontent.com/TheAgentCompany/plane/refs/heads/stable/deploy/selfhost/variables.env
+curl -H 'Cache-Control: no-cache, no-store' -s -o ./restore.sh https://raw.githubusercontent.com/TheAgentCompany/plane/refs/heads/stable/deploy/selfhost/restore-customized.sh
+
+curl -H 'Cache-Control: no-cache, no-store' -s -o ./plane-data.tar.gz https://github.com/TheAgentCompany/the-agent-company-backup-data/releases/download/plane-20241031-0351
+```
+</details>
+
 ### Step 2: Run the Benchmark
 
 Every task is a Docker image with the following structure:
