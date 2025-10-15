@@ -38,7 +38,7 @@ RUN pip install cryptography==44.0.0
 
 # Install Python libraries needed to launch NPCs
 RUN pip install rocketchat_API==1.32.0
-RUN pip install sotopia==0.1.2
+RUN pip install sotopia==0.1.4
 # sotopia requires a specific hiredis version
 RUN pip install hiredis==3.0.0
 RUN pip install litellm==1.23.16
@@ -54,6 +54,12 @@ ENV SCENARIOS_FILE_PATH /npc/scenarios.json
 ENV REDIS_OM_URL redis://default:theagentcompany@the-agent-company.com/:6379
 ENV BOT_URL http://the-agent-company.com:3000
 #############################################################
+
+################### MUSE SETUP ##################
+RUN pip install aiofiles==24.1.0 browser-use==0.5.5 dirtyjson==1.0.8 httpx==0.28.1 \
+    openai==1.96.1 pydantic==2.11.7 python-dotenv==1.1.1 pyyaml==6.0.2 rich==14.0.0
+RUN playwright install chromium
+RUN playwright install-deps chromium
 
 ################## LLM Evaluator/rocketchat NPC SETUP ###############
 # If the task needs to use LLM-based evaluator OR involves NPCs, then
@@ -73,6 +79,7 @@ ONBUILD COPY dependencies.yml /utils/
 
 # persist instruction files needed by the examinee
 ONBUILD COPY task.md /instruction/
+ONBUILD COPY checkpoints.md /instruction/
 
 # prevent examinee from accessing evaluator
 ONBUILD RUN python /utils/encrypt.py && rm /utils/evaluator.py /utils/encrypt.py

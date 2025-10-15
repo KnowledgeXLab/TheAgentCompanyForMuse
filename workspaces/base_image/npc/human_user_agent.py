@@ -5,7 +5,7 @@ from sotopia.database import AgentProfile
 from sotopia.generation_utils.langchain_callback_handler import LoggingCallbackHandler
 from sotopia.messages import Observation, AgentAction, ActionType
 from sotopia.generation_utils.generate import agenerate
-from langchain.output_parsers import PydanticOutputParser
+from sotopia.generation_utils.output_parsers import PydanticOutputParser
 
 async def agenerate_action_human(
     model_name: str,

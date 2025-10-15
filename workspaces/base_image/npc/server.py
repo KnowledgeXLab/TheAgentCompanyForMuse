@@ -10,7 +10,7 @@ from tqdm.asyncio import tqdm_asyncio
 from human_user_agent import HumanUserAgent
 from sotopia.agents.base_agent import BaseAgent
 from sotopia.envs.evaluators import (
-    ReachGoalLLMEvaluator,
+    EpisodeLLMEvaluator,
     RuleBasedTerminatedEvaluator,
 )
 from sotopia.generation_utils.generate import LLM_Name
@@ -108,7 +108,7 @@ class BridgeSampler(BaseSampler[ObsType, ActType]):
 
 @beartype
 async def run_server(
-    model_dict: dict[str, LLM_Name],
+    model_dict: dict[str, str],
     agents_roles: dict[str, str],
     sampler: BaseSampler[Observation, AgentAction] = BridgeSampler(),
     action_order: Literal["simutaneous", "round-robin", "random"] = "round-robin",
@@ -142,7 +142,7 @@ async def run_server(
             RuleBasedTerminatedEvaluator(max_turn_number=20, max_stale_turn=4),
         ],
         "terminal_evaluators": [
-            ReachGoalLLMEvaluator(model_dict["env"], response_format_class=EvaluationForTwoAgents),
+            EpisodeLLMEvaluator(model_dict["env"], response_format_class=EvaluationForTwoAgents),
         ],
 
     }

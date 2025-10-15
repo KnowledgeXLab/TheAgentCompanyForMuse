@@ -1,6 +1,6 @@
-IMAGE_NAME=base-image
-CONTAINER_NAME=base-image
-IMAGE_TAG=latest
+IMAGE_NAME=ghcr.io/theagentcompany/task-base-image
+CONTAINER_NAME=ghcr.io/theagentcompany/task-base-image
+IMAGE_TAG=1.0.0
 GHCR=ghcr.io/theagentcompany
 GHCR_NAME=task-base-image
 
